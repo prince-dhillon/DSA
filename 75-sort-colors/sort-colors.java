@@ -1,32 +1,27 @@
 class Solution {
-    public void sortColors(int[] nums) {
-        // Using normal Method
-        int zero=0;
-        int one=0;
-        int two=0;
-        int n = nums.length;
-        for(int i=0; i<n; i++){
-            if(nums[i]==0){
-                zero++;
+    public static void swap(int arr[],int i ,int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    public void sortColors(int[] arr) {
+        // Using Dutch Flag Algorithm
+        int lo = 0;
+        int mid = 0;
+        int high = arr.length-1;
+        while(mid<=high){
+            if(arr[mid]==0){
+                swap(arr,mid,lo);
+                lo++;
+                mid++;
             }
-            else if(nums[i]==1){
-                one++;
-            }
-            else{
-                two++;
-            }
-        }
-        for(int i=0; i<n; i++){
-            if(i<zero){
-                nums[i] = 0;
-            }
-            else if(i<zero+one){
-                nums[i] = 1;
+            else if(arr[mid]==1){
+                mid++;
             }
             else{
-                nums[i] = 2;
+                swap(arr,mid,high);
+                high--;
             }
         }
-        
     }
 }
