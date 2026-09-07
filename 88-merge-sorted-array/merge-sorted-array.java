@@ -1,19 +1,23 @@
 class Solution {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int x = m+n;
-        int p=0;
-        int arr[] = new int[x];
-        for(int i=0; i<m; i++){
-            arr[i] = nums1[i];
+    public void merge(int[] a, int m, int[] b, int n) {
+        int i = m-1; // Pointer to end of 1st Array
+        int j = n-1; // Pointer to end of 2nd Array
+        int k = m+n-1; // Pointer to actual end of 1st Array
+        while(i>=0 && j>=0){
+            if(a[i]>=b[j]){
+                a[k] = a[i];
+                i--; k--;
+            }
+            else{
+                a[k] = b[j];
+                j--; k--;
+            }
         }
-        for(int i=m; i<x; i++){
-            arr[i] = nums2[p++];
+        if(i==-1){
+            while(j>=0){
+                a[k] = b[j];
+                j--; k--;
+            }
         }
-        Arrays.sort(arr);
-        System.out.print("[");
-        for(int i=0; i<x; i++){
-            nums1[i] = arr[i];
-        }
-        
     }
 }
