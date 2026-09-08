@@ -1,39 +1,45 @@
 class Solution {
-    public int matrixScore(int[][] grid) {
-        int r = grid.length;
-        int c = grid[0].length;
-        // Making first element zero
+    public int matrixScore(int[][] arr) {
+        int r = arr.length;
+        int c = arr[0].length;
         for(int i=0; i<r; i++){
-            if(grid[i][0]==0){
+            if(arr[i][0]==0){
                 for(int j=0; j<c; j++){
-                    if(grid[i][j]==0) grid[i][j]=1;
-                    else grid[i][j]=0;
+                    if(arr[i][j]==0){
+                        arr[i][j]=1;
+                    }
+                    else{
+                        arr[i][j]=0;
+                    }
                 }
             }
+
         }
-        // Checking number of zeros and ones in each column
         for(int j=0; j<c; j++){
-            int zeroCount= 0;
-            int oneCount = 0;
+            int zero = 0;
+            int one = 0;
             for(int i=0; i<r; i++){
-                if(grid[i][j]==0) zeroCount++;
-                else oneCount++;
+                if(arr[i][j]==0) zero++;
+                else one++; 
             }
-            if(zeroCount>oneCount){
+            if(zero>one){
                 for(int i=0; i<r; i++){
-                    if(grid[i][j]==0) grid[i][j]=1;
-                    else grid[i][j]=0;
+                    if(arr[i][j]==0){
+                        arr[i][j]=1;
+                    }
+                    else{
+                        arr[i][j]=0;
+                    }
                 }
             }
-            
         }
         int result = 0;
-        int x = 1;
-        for(int j=c-1; j>=0; j--){
-            for(int i=0 ; i<r; i++){
-                result+= grid[i][j]*x;
-            }
-            x*=2;
+        for(int i=0; i<r; i++){
+            int x = 1;
+            for(int j=c-1; j>=0; j--){
+                result+=arr[i][j]*x;
+                x*=2;
+            }     
         }
         return result;
     }
