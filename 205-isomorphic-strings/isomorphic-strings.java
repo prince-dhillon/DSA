@@ -1,23 +1,29 @@
 class Solution {
     public boolean isIsomorphic(String s, String t) {
-        char arr[] = new char[128];
+        char freq[] = new char[128];
         for(int i=0; i<s.length(); i++){
-            int idx = (int)s.charAt(i);
-            if(arr[idx]=='\u0000' || arr[idx]==t.charAt(i)){
-                arr[idx]=t.charAt(i);
+            char ch = s.charAt(i);
+            char dh = t.charAt(i);
+            int idx = (int)(ch);
+            if(freq[idx]=='\0'){
+                freq[idx] = dh;
             }
             else{
-                return false;
+                if(freq[idx]!= dh) return false;
             }
         }
-        char brr[] = new char[128];
+        for(int i=0; i<128; i++){
+            freq[i] = '\0';
+        }
         for(int i=0; i<t.length(); i++){
-            int idx = (int)t.charAt(i);
-            if(brr[idx]=='\u0000' || brr[idx]==s.charAt(i)){
-                brr[idx]=s.charAt(i);
+            char ch = s.charAt(i);
+            char dh = t.charAt(i);
+            int idx = (int)(dh);
+            if(freq[idx]=='\0'){
+                freq[idx] = ch;
             }
             else{
-                return false;
+                if(freq[idx]!= ch) return false;
             }
         }
         return true;
