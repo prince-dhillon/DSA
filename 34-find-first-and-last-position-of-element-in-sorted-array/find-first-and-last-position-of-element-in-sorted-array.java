@@ -6,13 +6,17 @@ class Solution {
         int hi = n-1;
         int lo = 0;
         int r[] = {-1,-1};
-        boolean flag= false;
 
         while(lo<=hi){
             int mid = (lo+hi)/2;
             if(arr[mid]==target){
-                flag = true;
-                break;
+                if(mid>0 && arr[mid-1]==arr[mid]){
+                    hi = mid-1;
+                }
+                else{
+                    lb = mid;
+                    break;
+                }
             }
             else if(arr[mid]<target){
                 lo = mid+1;
@@ -21,35 +25,31 @@ class Solution {
                 hi = mid-1;
             }
         }
-        if(flag==false) return r;
 
         lo = 0;
-        hi=n-1;
-        while(lo<=hi){
-            int mid = (lo+hi)/2;
-            if(arr[mid]>=target){
-                lb = Math.min(mid,lb);
-                hi = mid-1;
-            }
-            else{
-                lo = mid+1;
-            }
-        }
         hi = n-1;
-        lo = 0;
         while(lo<=hi){
             int mid = (lo+hi)/2;
-            if(arr[mid]>target){
-                ub = Math.min(mid,ub);
-                hi = mid-1;
+            if(arr[mid]==target){
+                if(mid<n-1 && arr[mid+1]==arr[mid]){
+                    lo = mid+1;
+                }
+                else{
+                    ub = mid;
+                    break;
+                }
             }
-            else{
+            else if(arr[mid]<target){
                 lo = mid+1;
             }
+            else if(arr[mid]>target){
+                hi = mid-1;
+            }
         }
-        
+        if (lb == n) lb = -1;
+        if (ub == n) ub = -1;
         r[0]= lb;
-        r[1] = ub-1;
+        r[1] = ub;
         return r;
     }
 }
