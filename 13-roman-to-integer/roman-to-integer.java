@@ -1,12 +1,15 @@
 class Solution {
     public static int getValue(char c){
-        if(c == 'I') return 1;
-        else if(c == 'V') return 5;
-        else if(c == 'X') return 10;
-        else if(c == 'L') return 50;
-        else if(c == 'C') return 100;
-        else if(c == 'D') return 500;
-        else return 1000;
+        switch (c) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
+        }
     }
   static int romanToInt(String str) {
     // Complete the function
