@@ -3,20 +3,17 @@ class Solution {
         int n = arr.length;
         int lb = n;
         int ub = n;
-        int hi = n-1;
         int lo = 0;
+        int hi = n-1;
         int r[] = {-1,-1};
+
+        boolean flag= false;
 
         while(lo<=hi){
             int mid = (lo+hi)/2;
             if(arr[mid]==target){
-                if(mid>0 && arr[mid-1]==arr[mid]){
-                    hi = mid-1;
-                }
-                else{
-                    lb = mid;
-                    break;
-                }
+                flag = true;
+                break;
             }
             else if(arr[mid]<target){
                 lo = mid+1;
@@ -24,32 +21,32 @@ class Solution {
             else if(arr[mid]>target){
                 hi = mid-1;
             }
+        }
+        if(flag==false) return r;
+
+        while(lo<=hi){
+            int mid = lo + (hi-lo)/2;
+            if(arr[mid]>=target){
+                lb = Math.min(lb,mid);
+                hi = mid-1;
+            }
+            else lo = mid+1;
         }
 
         lo = 0;
         hi = n-1;
         while(lo<=hi){
-            int mid = (lo+hi)/2;
-            if(arr[mid]==target){
-                if(mid<n-1 && arr[mid+1]==arr[mid]){
-                    lo = mid+1;
-                }
-                else{
-                    ub = mid;
-                    break;
-                }
-            }
-            else if(arr[mid]<target){
-                lo = mid+1;
-            }
-            else if(arr[mid]>target){
+            int mid = lo + (hi-lo)/2;
+            if(arr[mid]>target){
+                ub = Math.min(ub,mid);
                 hi = mid-1;
             }
+            else lo = mid+1;
         }
-        if (lb == n) lb = -1;
-        if (ub == n) ub = -1;
-        r[0]= lb;
-        r[1] = ub;
+
+        r[0] = lb;
+        r[1] = ub-1;
         return r;
+
     }
 }
