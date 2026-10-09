@@ -11,9 +11,7 @@ class Solution {
             else if(arr[mid]<arr[mid+1]){
                 lo = mid+1;
             }
-            else if(arr[mid]>arr[mid+1]){
-                hi = mid-1;
-            }
+            else hi = mid-1;
         }
         return -1;
     }
