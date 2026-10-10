@@ -8,32 +8,32 @@ class Solution {
             }
             return r;
         }
-        if(x>arr[n-1]){
-            for(int i=n-1; i>=n-k; i--){
+        else if(x>arr[n-1]){
+            for(int i=n-1; i>=k; i--){
                 r.add(arr[i]);
             }
             Collections.sort(r);
             return r;
         }
+
         int lb = n;
-        int lo = 0;
-        int hi = n-1;
+        int lo = 0, hi = n-1;
         while(lo<=hi){
-            int mid = lo + (hi-lo)/2;
+            int mid = lo +(hi-lo)/2;
             if(arr[mid]>=x){
-                lb = mid;
+                lb = Math.min(lb,mid);
                 hi = mid-1;
             }
-            else lo = mid+1;
+            else{
+                lo = mid+1;
+            }
         }
 
-        int i = lb-1;
-        int j = lb;
-
-        while(i>=0 && k>0 && j<n){
-            int di = Math.abs(arr[i]-x);
-            int dj = Math.abs(arr[j]-x);
-            if(di<=dj){
+        int i = lb-1, j=lb;
+        while(k>0 && i>=0 && j<=n-1){
+            int disI = Math.abs(arr[i]-x);
+            int disJ = Math.abs(arr[j]-x);
+            if(disI<=disJ){
                 r.add(arr[i]);
                 i--;
             }
@@ -43,14 +43,14 @@ class Solution {
             }
             k--;
         }
-        
-        while(i<0 && k>0){
+
+        while(k>0 && i<0){
             r.add(arr[j]);
             j++;
             k--;
         }
 
-        while(j>=n && k>0){
+        while(k>0 && j>n-1){
             r.add(arr[i]);
             i--;
             k--;
@@ -58,6 +58,5 @@ class Solution {
 
         Collections.sort(r);
         return r;
-
     }
 }
