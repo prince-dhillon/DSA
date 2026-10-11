@@ -1,43 +1,36 @@
 class Solution {
-    public static boolean isPossible(int arr[], int c, int d){
-        int daysTaken = 1;
-        int s = 0;
+    public static boolean isPossible(int arr[], int mid, int days){
+        int load = 0;
+        int d = 1;
         for(int i=0; i<arr.length; i++){
-            if(arr[i]+s<=c){
-                s+=arr[i];
-            }
+            if(load+arr[i]<=mid) load+=arr[i];
             else{
-                s = arr[i];
-                daysTaken++;
+                d++;
+                load = arr[i];
             }
         }
-        if(daysTaken>d){
-            return false;
-        }
-        return true;
+        if(d<=days) return true;
+        return false;
     }
     public int shipWithinDays(int[] arr, int days) {
         int n = arr.length;
-        int sum = 0;
         int mx = 0;
+        int s = 0;
         for(int num: arr){
-            sum+=num;
             mx = Math.max(mx,num);
+            s+=num;
         }
-
         int lo = mx;
-        int hi = sum;
-        int minC = sum;
+        int hi = s;
+        int ans = 0;
         while(lo<=hi){
-            int mid = (lo+hi)/2;
+            int mid = lo + (hi-lo)/2;
             if(isPossible(arr,mid,days)){
-                minC = mid;
+                ans = mid;
                 hi = mid-1;
             }
-            else{
-                lo = mid+1;
-            }
+            else lo = mid+1;
         }
-        return minC;
+        return ans;
     }
 }
