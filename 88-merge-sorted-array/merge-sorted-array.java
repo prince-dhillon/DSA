@@ -5,18 +5,20 @@ class Solution {
         int k = m+n-1; // Pointer to actual end of 1st Array
         while(i>=0 && j>=0){
             if(a[i]>=b[j]){
-                a[k] = a[i];
-                i--; k--;
+                a[k--] = a[i--];
             }
             else{
-                a[k] = b[j];
-                j--; k--;
+                a[k--]= b[j--];
             }
         }
-        if(i==-1){
+        if(i<0){
             while(j>=0){
-                a[k] = b[j];
-                j--; k--;
+                a[k--]= b[j--];
+            }
+        }
+        if(j<0){
+            while(i>=0){
+                a[k--]= a[i--];
             }
         }
     }
