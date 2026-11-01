@@ -9,12 +9,14 @@ class Solution {
             ans.add(s);
             return;
         }
-        //Not taking
-        subset(arr,a,i+1);
         //Taking
         a.add(arr[i]);
         subset(arr,a,i+1);
         a.remove(a.size()-1);
+        
+        //Not taking
+        subset(arr,a,i+1);
+        
     }
     public List<List<Integer>> subsets(int[] arr) {
         ans = new ArrayList<>();
