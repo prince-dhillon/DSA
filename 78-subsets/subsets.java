@@ -1,28 +1,25 @@
-import java.util.*;
-
 class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        sub(0, nums, new ArrayList<>(), ans);
-        return ans;
-    }
-
-    public void sub(int i, int[] nums, List<Integer> a,
-                    List<List<Integer>> ans) {
-
-        if (i == nums.length) {
-            ans.add(new ArrayList<>(a));
+    static List<List<Integer>> ans = new ArrayList<>();
+    public void subset(int arr[], List<Integer> a, int i){
+        if(i==arr.length){
+            List<Integer> s = new ArrayList<>();
+            for(int j=0; j<a.size(); j++){
+                s.add(a.get(j));
+            }
+            ans.add(s);
             return;
         }
-
-        // Not take
-        sub(i + 1, nums, a, ans);
-
-        // Take
-        a.add(nums[i]);
-        sub(i + 1, nums, a, ans);
-
-        // Backtrack
-        a.remove(a.size() - 1);
+        //Not taking
+        subset(arr,a,i+1);
+        //Taking
+        a.add(arr[i]);
+        subset(arr,a,i+1);
+        a.remove(a.size()-1);
+    }
+    public List<List<Integer>> subsets(int[] arr) {
+        ans = new ArrayList<>();
+        subset(arr,new ArrayList<>(), 0);
+        return ans;
+        
     }
 }
