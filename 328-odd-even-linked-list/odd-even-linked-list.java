@@ -21,6 +21,7 @@ class Solution {
             t2.next = t1.next;
             t2 = t2.next;
         }
+
         t1.next = x;
         return head;
     }
