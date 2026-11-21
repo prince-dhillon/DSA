@@ -23,35 +23,39 @@ public class Solution {
             lenB++;
             b = b.next;
         }
-
-        ListNode A = headA;
-        ListNode B = headB;
+        ListNode t1 = headA;
+        ListNode t2 = headB;
 
         if(lenA==lenB){
-            while(A!=B){
-                A = A.next;
-                B = B.next;
+            while(t1!=t2){
+                t1 = t1.next;
+                t2 = t2.next;
             }
-            return A;
+            return t2;
         }
         else{
-            if(lenA>lenB){
-                int n = lenA - lenB;
-                for(int i=0; i<n; i++){
-                    A = A.next;
+            if(lenB>lenA){
+                int len = lenB-lenA;
+                for(int i=0; i<len; i++){
+                    t2 = t2.next;
                 }
+                while(t1!=t2){
+                t1 = t1.next;
+                t2 = t2.next;
+                }
+                return t2;
             }
             else{
-                int n = lenB - lenA;
-                for(int i=0; i<n; i++){
-                    B = B.next;
+                int len = lenA-lenB;
+                for(int i=0; i<len; i++){
+                    t1 = t1.next;
                 }
+                while(t1!=t2){
+                t1 = t1.next;
+                t2 = t2.next;
+                }
+                return t2;
             }
-            while(A!=B){
-                A = A.next;
-                B = B.next;
-            }
-            return A;
         }
         
     }
