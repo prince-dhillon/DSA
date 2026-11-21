@@ -38,18 +38,14 @@ class Solution {
         ListNode t1 = head;
         ListNode t2 = newHead;
         while(t1!=null && t2!=null){
-            ListNode n1 = t1.next;
-            ListNode n2 = t2.next;
 
             t.next = t1;
             t = t.next;
+            t1 = t1.next;
 
             t.next = t2;
             t = t.next;
-
-            t1 = n1;
-            t2 = n2;
-
+            t2 = t2.next;
         }
 
         t.next = t1;
