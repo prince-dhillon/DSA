@@ -1,41 +1,43 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
+
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        // Create a placeholder dummy node to easily build the result list
-        ListNode dummyHead = new ListNode(0);
-        ListNode current = dummyHead;
+
+        ListNode t1 = l1;
+        ListNode t2 = l2;
+
+        ListNode dummy = new ListNode(-1);
+        ListNode t = dummy;
         int carry = 0;
 
-        // Continue looping if there are still digits left or a remaining carryover value
-        while (l1 != null || l2 != null || carry != 0) {
-            int val1 = (l1 != null) ? l1.val : 0;
-            int val2 = (l2 != null) ? l2.val : 0;
+        while (t1 != null || t2 != null) {
 
-            // Calculate sum and update carryover
-            int total = val1 + val2 + carry;
-            carry = total / 10;
-            int newVal = total % 10;
+            int val = 0;
 
-            // Create new node and attach it to the solution list
-            current.next = new ListNode(newVal);
-            current = current.next;
+            if (t1 != null && t2 != null) {
+                val = t1.val + t2.val + carry;
+            }
+            else if (t1 != null) {
+                val = t1.val + carry;
+            }
+            else {
+                val = t2.val + carry;
+            }
 
-            // Move list pointers to the next node if available
-            if (l1 != null) l1 = l1.next;
-            if (l2 != null) l2 = l2.next;
+            int digit = val % 10;
+            carry = val / 10;
+
+            ListNode x = new ListNode(digit);
+            t.next = x;
+            t = t.next;
+
+            if (t1 != null) t1 = t1.next;
+            if (t2 != null) t2 = t2.next;
         }
 
-        // Return the actual head of the list, skipping the initial dummy node
-        return dummyHead.next;
+        if (carry > 0) {
+            t.next = new ListNode(carry);
+        }
+
+        return dummy.next;
     }
 }
-
